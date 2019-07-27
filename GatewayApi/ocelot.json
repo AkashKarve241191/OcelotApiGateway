@@ -1,0 +1,35 @@
+{
+    "ReRoutes": [{
+            "key": "api-catalog",
+            "DownstreamPathTemplate": "/api/currencies",
+            "DownstreamScheme": "http",
+            "DownstreamHostAndPorts": [{
+                "Host": "localhost",
+                "Port": 7001
+            }],
+            "UpstreamPathTemplate": "/catalog-api/currencies",
+            "UpstreamHttpMethod": ["Get"]
+        },
+        {
+            "key": "api-order",
+            "DownstreamPathTemplate": "/api/orders",
+            "DownstreamScheme": "http",
+            "DownstreamHostAndPorts": [{
+                "Host": "localhost",
+                "Port": 7002
+            }],
+            "UpstreamPathTemplate": "/orders-api/orders",
+            "UpstreamHttpMethod": ["Get"]
+        }
+    ],
+    "Aggregates": [{
+        "ReRouteKeys": [
+            "api-catalog",
+            "api-order"
+        ],
+        "UpstreamPathTemplate" :"/api-catalog-order"
+    }],
+    "GlobalConfiguration": {
+        "BaseUrl": "http://localhost:7000"
+    }
+}
